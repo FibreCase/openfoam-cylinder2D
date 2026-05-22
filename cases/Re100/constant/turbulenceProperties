@@ -1,0 +1,3 @@
+FoamFile { version 2.0; format ascii; class dictionary; object turbulenceProperties; }
+
+simulationType  laminar;    // Re=100，无需湍流模型

@@ -1,0 +1,57 @@
+FoamFile { version 2.0; format ascii; class dictionary; object controlDict; }
+
+application     icoFoam;
+
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+endTime         600000;     // ~10 个涡脱落周期（T≈61000 s）
+
+deltaT          100;        // Co = U·dt/dx ≈ 1e-4×100/0.05 = 0.2，安全
+
+writeControl    timeStep;
+writeInterval   10;        // 每 10 步写一次（即每 1000 s）
+purgeWrite      0;
+
+writeFormat     ascii;
+writePrecision  8;
+writeCompression off;
+
+timeFormat      general;
+timePrecision   6;
+
+runTimeModifiable true;
+
+// 实时监控阻力/升力
+functions
+{
+    forces
+    {
+        type            forces;
+        libs            (forces);
+        writeControl    timeStep;
+        writeInterval   10;
+        patches         (walls);       // 监控整个 walls（含圆柱）
+        rho             rhoInf;
+        rhoInf          1000;          // 水的密度
+        CofR            (0 0 0);       // 参考点（圆柱中心）
+    }
+
+    forceCoeffs
+    {
+        type            forceCoeffs;
+        libs            (forces);
+        writeControl    timeStep;
+        writeInterval   10;
+        patches         (walls);
+        rho             rhoInf;
+        rhoInf          1000;
+        liftDir         (0 1 0);
+        dragDir         (1 0 0);
+        CofR            (0 0 0);
+        pitchAxis       (0 0 1);
+        magUInf         1e-4;
+        lRef            1;             // D = 1 m
+        Aref            1;             // 单位展向长度，按实际拉伸厚度调整
+    }
+}

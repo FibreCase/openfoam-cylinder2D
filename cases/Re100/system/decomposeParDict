@@ -1,0 +1,9 @@
+FoamFile { version 2.0; format ascii; class dictionary; object decomposeParDict; }
+
+numberOfSubdomains  24;          // ← 按 CPU 核心数修改
+
+method  scotch;                 // 非结构网格首选，自动负载均衡，无需手动分区
+
+// 如果 scotch 不可用，改用 simple 手动分区：
+// method  simple;
+// simpleCoeffs { n (4 2 1); delta 0.001; }

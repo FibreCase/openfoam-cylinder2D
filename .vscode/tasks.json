@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "OpenFOAM Terminal",
+            "type": "shell",
+            "command": "docker run --rm -it -v .:/root -w /root --name openfoam-runtime microfluidica/openfoam:latest"
+        },
+        {
+            "label": "OpenFOAM Non-root Terminal",
+            "type": "shell",
+            "command": "docker exec -it openfoam-runtime bash"
+        },
+        {
+            "label": "OpenFOAM Non-root Start",
+            "type": "shell",
+            "command": "docker compose up -d --build"
+        },
+        {
+            "label": "OpenFOAM Non-root Stop",
+            "type": "shell",
+            "command": "docker compose down"
+        }
+    ]
+}
