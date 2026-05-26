@@ -5,7 +5,7 @@ application     icoFoam;
 startFrom       startTime;
 startTime       0;
 stopAt          endTime;
-endTime         60000;     // ~10 个涡脱落周期（T≈61000 s）
+endTime         600000;     // ~10 个涡脱落周期（T≈61000 s）
 
 deltaT          100;        // Co = U·dt/dx ≈ 1e-4×100/0.05 = 0.2，安全
 
