@@ -1,16 +1,19 @@
 FoamFile { version 2.0; format ascii; class dictionary; object controlDict; }
 
-application     icoFoam;
+application     rhoPimpleFoam;
 
 startFrom       startTime;
 startTime       0;
 stopAt          endTime;
-endTime         600000;     // ~10 个涡脱落周期（T≈61000 s）
+endTime         0.5;
 
-deltaT          100;        // Co = U·dt/dx ≈ 1e-4×100/0.05 = 0.2，安全
+deltaT          1e-6;
+adjustTimeStep  yes;
+maxCo           0.2;
+maxDeltaT       5e-6;
 
-writeControl    timeStep;
-writeInterval   10;        // 每 10 步写一次（即每 1000 s）
+writeControl    runTime;
+writeInterval   5e-4;
 purgeWrite      0;
 
 writeFormat     ascii;
@@ -29,11 +32,11 @@ functions
     {
         type            forces;
         libs            (forces);
-        writeControl    timeStep;
-        writeInterval   10;
+        writeControl    runTime;
+        writeInterval   0.02;
         patches         (walls);       // 监控整个 walls（含圆柱）
-        rho             rhoInf;
-        rhoInf          1000;          // 水的密度
+        rho             rho;
+        rhoInf          1.225;
         CofR            (0 0 0);       // 参考点（圆柱中心）
     }
 
@@ -41,17 +44,17 @@ functions
     {
         type            forceCoeffs;
         libs            (forces);
-        writeControl    timeStep;
-        writeInterval   10;
+        writeControl    runTime;
+        writeInterval   0.02;
         patches         (walls);
-        rho             rhoInf;
-        rhoInf          1000;
+        rho             rho;
+        rhoInf          1.225;
         liftDir         (0 1 0);
         dragDir         (1 0 0);
         CofR            (0 0 0);
         pitchAxis       (0 0 1);
-        magUInf         1e-4;
-        lRef            1;             // D = 1 m
+        magUInf         34.7188;
+        lRef            0.1;             // D = 1 m
         Aref            1;             // 单位展向长度，按实际拉伸厚度调整
     }
 }

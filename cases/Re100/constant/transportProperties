@@ -1,4 +1,4 @@
 FoamFile { version 2.0; format ascii; class dictionary; object transportProperties; }
 
 transportModel  Newtonian;
-nu              [0 2 -1 0 0 0 0]  1e-06;   // 水 @ 20°C
+nu              [0 2 -1 0 0 0 0]  1.56e-05;   // 空气 @ 300 K（仅在不可压求解器中使用）

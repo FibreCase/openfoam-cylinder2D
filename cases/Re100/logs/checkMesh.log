@@ -8,10 +8,10 @@
 Build  : _87ed40d2-20251219 OPENFOAM=2512 version=2512
 Arch   : "LSB;label=32;scalar=64"
 Exec   : checkMesh
-Date   : May 25 2026
-Time   : 11:07:14
-Host   : cf9701328018
-PID    : 502
+Date   : May 31 2026
+Time   : 09:24:38
+Host   : 10958d5f01fd
+PID    : 1628
 I/O    : uncollated
 Case   : /workspace/cases/Re100
 nProcs : 1
@@ -30,12 +30,12 @@ Check mesh...
 Time = 0
 
 Mesh stats 
-    points:           184364
+    points:           82066
     internal points:  0
-    faces:            629908
-    internal faces:   270786
-    cells:            179242
-    faces per cell:   5.0250165
+    faces:            272471
+    internal faces:   117743
+    cells:            77146
+    faces per cell:   5.0581236
     boundary patches: 4
     point zones:      0
     face zones:       0
@@ -43,7 +43,7 @@ Mesh stats
 
 Overall number of cells of each type:
     hexahedra:     4484
-    prisms:        174758
+    prisms:        72662
     wedges:        0
     pyramids:      0
     tet wedges:    0
@@ -60,11 +60,11 @@ Checking topology...
 
 Checking patch topology for multiply connected surfaces...
     Patch               Faces    Points     Surface topology
-    frontAndBack        358484   184364   ok (non-closed singly connected)  
-    walls               504      1012     ok (non-closed singly connected)  
-    outlet              67       136      ok (non-closed singly connected)  
-    inlet               67       136      ok (non-closed singly connected)  
-    ".*"                359122   184364   ok (closed singly connected)      
+    frontAndBack        154292   82066    ok (non-closed singly connected)  
+    walls               356      716      ok (non-closed singly connected)  
+    outlet              40       82       ok (non-closed singly connected)  
+    inlet               40       82       ok (non-closed singly connected)  
+    ".*"                154728   82066    ok (closed singly connected)      
 
 
 Checking faceZone topology for multiply connected surfaces...
@@ -72,25 +72,25 @@ Checking faceZone topology for multiply connected surfaces...
 
 Checking basic cellZone addressing...
     CellZone            Cells        Points       Volume       BoundingBox
-    fluid               179242       184364       19.921469    (0 -5 0) (20 5 0.1)
+    fluid               77146        82066        0.059921469  (0 -1 0) (3 1 0.01)
 
 Checking basic pointZone addressing...
     No pointZones found.
 
 Checking geometry...
-    Overall domain bounding box (0 -5 0) (20 5 0.1)
+    Overall domain bounding box (0 -1 0) (3 1 0.01)
     Mesh has 2 geometric (non-empty/wedge) directions (1 1 0)
     Mesh has 2 solution (non-empty) directions (1 1 0)
     All edges aligned with or perpendicular to non-empty directions.
-    Boundary openness (5.9575148e-19 2.5715891e-20 -4.2901674e-21) OK.
-    Max cell openness = 2.1887852e-16 OK.
-    Max aspect ratio = 2.7872851 OK.
-    Minimum face area = 6.1137291e-05. Maximum face area = 0.020163211.  Face area magnitudes OK.
-    Min volume = 6.1137291e-06. Max volume = 0.0013251691.  Total volume = 19.921469.  Cell volumes OK.
-    Mesh non-orthogonality Max: 38.592448 average: 7.0707077
+    Boundary openness (1.435146e-19 -6.2787638e-20 -1.4507816e-23) OK.
+    Max cell openness = 2.2833576e-16 OK.
+    Max aspect ratio = 2.8026944 OK.
+    Minimum face area = 6.5697721e-07. Maximum face area = 0.001713547.  Face area magnitudes OK.
+    Min volume = 6.5697721e-09. Max volume = 1.713547e-05.  Total volume = 0.059921469.  Cell volumes OK.
+    Mesh non-orthogonality Max: 36.50924 average: 6.9722401
     Non-orthogonality check OK.
     Face pyramids OK.
-    Max skewness = 0.58586074 OK.
+    Max skewness = 0.59362318 OK.
     Coupled point location match (average 0) OK.
 
 Mesh OK.
