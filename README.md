@@ -1,10 +1,13 @@
-# OpenFOAM Cylinder-Flow Kármán Vortex Street Simulation
+# OpenFOAM Cylinder Flow Kármán Vortex Street Simulation
 
-This project uses OpenFOAM to simulate the Kármán vortex street formed in two-dimensional flow past a circular cylinder. Geometry modeling and meshing are handled with Gmsh, the flow is solved in OpenFOAM, and the results are post-processed in ParaView.
+This project uses OpenFOAM to simulate the Kármán vortex street formed by two-dimensional flow past a circular cylinder. Geometry modeling and mesh generation are handled with Gmsh, the flow field is solved in OpenFOAM, and the results are post-processed in ParaView.
 
 ## Project Overview
 
-- Cylinder diameter: $D = 1\,\text{m}$
+- Cylinder diameter: $D = 0.01\,\text{m}$
+- Fluid density: $\rho = 1.225\,\text{kg/m}^3$
+- Inlet velocity: $U = 34.7188\,\text{m/s}$
+- Far-field gauge pressure: $p_{\infty} = 444.038\,\text{Pa}$
 - Problem type: two-dimensional external flow
 - Geometry and mesh generation: Gmsh
 - CFD solver: OpenFOAM
@@ -21,8 +24,8 @@ The repository contains the following main directories:
 
 1. Define the two-dimensional cylinder-flow domain in `geometry/cylinder2D.geo`.
 2. Run `geometry/generate.sh` to generate the mesh with Gmsh.
-3. In `cases/Re100/`, perform mesh checking, domain decomposition, and OpenFOAM solving.
-4. Open the results in ParaView to inspect velocity, pressure, and vortex shedding behavior.
+3. In `cases/Re100/`, perform mesh checking, parallel decomposition, and OpenFOAM solving.
+4. Use ParaView to inspect the velocity field, pressure field, and vortex street evolution.
 
 ## Environment
 
@@ -45,6 +48,41 @@ bash generate.sh
 ```
 
 The mesh file is generated as `geometry/cylinder2D.msh` by default.
+
+Update the `type` and `physicalType` entries in `cases/Re100/constant/polyMesh/boundary` so they match the boundary definitions in the mesh. An example is shown below:
+
+```openFoam
+(
+	frontAndBack
+	{
+		type            empty;
+		physicalType    empty;
+		nFaces          154456;
+		startFace       117866;
+	}
+	walls
+	{
+		type            wall;
+		physicalType    wall;
+		nFaces          356;
+		startFace       272322;
+	}
+	outlet
+	{
+		type            patch;
+		physicalType    outlet;
+		nFaces          40;
+		startFace       272678;
+	}
+	inlet
+	{
+		type            patch;
+		physicalType    inlet;
+		nFaces          40;
+		startFace       272718;
+	}
+)
+```
 
 ### 2. Run the case
 
@@ -71,4 +109,4 @@ After the solve finishes, open the case directory in ParaView and inspect veloci
 ## Notes
 
 - The goal of this project is to reproduce the vortex shedding characteristics of cylinder flow.
-- To change the Reynolds number, mesh density, or domain size, start by editing `geometry/cylinder2D.geo` and the corresponding OpenFOAM physical parameter settings.
+- If you need to adjust the Reynolds number, mesh density, or domain size, start by editing `geometry/cylinder2D.geo` and the corresponding OpenFOAM physical parameter settings.

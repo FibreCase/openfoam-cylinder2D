@@ -4,7 +4,10 @@
 
 ## 项目说明
 
-- 圆柱直径：$D = 1\,\text{m}$
+- 圆柱直径：$D = 0.01\,\text{m}$
+- 流体密度：$\rho = 1.225\,\text{kg/m}^3$
+- 来流速度：$U = 34.7188\,\text{m/s}$
+- 远场表压：$p_{\infty} = 444.038\,\text{Pa}$
 - 计算类型：二维外流
 - 几何与网格：Gmsh
 - 数值求解：OpenFOAM
@@ -45,6 +48,41 @@ bash generate.sh
 ```
 
 网格文件默认生成在 `geometry/cylinder2D.msh`。
+
+修改 `case/Re100` 中的 `constant/polyMesh/boundary` 中的 `type` 和 `physicalType` ，使其与Mesh中的边界条件定义保持一致。如下所示：
+
+```openFoam
+(
+    frontAndBack
+    {
+        type            empty;
+        physicalType    empty;
+        nFaces          154456;
+        startFace       117866;
+    }
+    walls
+    {
+        type            wall;
+        physicalType    wall;
+        nFaces          356;
+        startFace       272322;
+    }
+    outlet
+    {
+        type            patch;
+        physicalType    outlet;
+        nFaces          40;
+        startFace       272678;
+    }
+    inlet
+    {
+        type            patch;
+        physicalType    inlet;
+        nFaces          40;
+        startFace       272718;
+    }
+)
+```
 
 ### 2. 运行算例
 
