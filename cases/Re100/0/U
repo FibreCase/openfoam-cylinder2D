@@ -1,7 +1,7 @@
 FoamFile { version 2.0; format ascii; class volVectorField; object U; }
 
 dimensions      [0 1 -1 0 0 0 0];
-internalField   uniform (34.7188 0 0);   // Ma=0.1, a=sqrt(gamma*R*T) at 300 K
+internalField   uniform (34.7188 0 0);   // Air inflow condition
 
 boundaryField
 {

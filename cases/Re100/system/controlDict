@@ -1,16 +1,16 @@
 FoamFile { version 2.0; format ascii; class dictionary; object controlDict; }
 
-application     rhoPimpleFoam;
+application     icoFoam;
 
 startFrom       startTime;
 startTime       0;
 stopAt          endTime;
 endTime         0.5;
 
-deltaT          1e-6;
+deltaT          1e-7;
 adjustTimeStep  yes;
 maxCo           0.2;
-maxDeltaT       5e-6;
+maxDeltaT       1e-4;
 
 writeControl    runTime;
 writeInterval   5e-4;
@@ -35,7 +35,7 @@ functions
         writeControl    runTime;
         writeInterval   0.02;
         patches         (walls);       // 监控整个 walls（含圆柱）
-        rho             rho;
+        rho             rhoInf;
         rhoInf          1.225;
         CofR            (0 0 0);       // 参考点（圆柱中心）
     }
@@ -47,14 +47,14 @@ functions
         writeControl    runTime;
         writeInterval   0.02;
         patches         (walls);
-        rho             rho;
+        rho             rhoInf;
         rhoInf          1.225;
         liftDir         (0 1 0);
         dragDir         (1 0 0);
         CofR            (0 0 0);
         pitchAxis       (0 0 1);
         magUInf         34.7188;
-        lRef            0.1;             // D = 1 m
-        Aref            1;             // 单位展向长度，按实际拉伸厚度调整
+        lRef            0.1;             // D = 0.1 m
+        Aref            0.1;             // 圆柱投影面积 = D × 1（单位展向）
     }
 }

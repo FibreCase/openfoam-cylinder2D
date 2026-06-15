@@ -31,8 +31,8 @@ log "Decomposing domain into $NP partitions..."
 decomposePar -force > logs/decomposePar.log 2>&1
 
 # ---- 5. 并行求解 ----
-log "Running rhoPimpleFoam on $NP cores..."
-mpirun -np "$NP" rhoPimpleFoam -parallel > logs/rhoPimpleFoam.log 2>&1
+log "Running icoFoam on $NP cores..."
+mpirun -np "$NP" icoFoam -parallel > logs/icoFoam.log 2>&1
 
 # ---- 6. 重组结果 ----
 log "Reconstructing fields..."

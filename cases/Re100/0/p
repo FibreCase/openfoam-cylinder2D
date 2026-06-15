@@ -1,7 +1,7 @@
 FoamFile { version 2.0; format ascii; class volScalarField; object p; }
 
-dimensions      [1 -1 -2 0 0 0 0];   // 绝对压力
-internalField   uniform 101769.038;  // 101325 + 444.038 (Pa)
+dimensions      [0 2 -2 0 0 0 0];   // 运动学压力，icoFoam 只求压强差
+internalField   uniform 362.480000;  // 444.038 Pa / 1.225 kg/m^3
 
 boundaryField
 {
@@ -12,7 +12,7 @@ boundaryField
     outlet
     {
         type fixedValue;
-        value uniform 101769.038;
+        value uniform 362.480000;
     }
     walls
     {

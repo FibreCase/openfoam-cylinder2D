@@ -16,17 +16,6 @@ solvers
         relTol          0;
     }
 
-    rho
-    {
-        solver          diagonal;
-    }
-
-    rhoFinal
-    {
-        $rho;
-        relTol          0;
-    }
-
     U
     {
         solver          PBiCGStab;
@@ -40,38 +29,11 @@ solvers
         $U;
         relTol          0;
     }
-
-    h
-    {
-        solver          PBiCGStab;
-        preconditioner  DILU;
-        tolerance       1e-08;
-        relTol          0.1;
-    }
-
-    hFinal
-    {
-        $h;
-        relTol          0;
-    }
 }
 
-PIMPLE
+PISO
 {
-    nOuterCorrectors            1;
     nCorrectors                 2;
     nNonOrthogonalCorrectors    1;
-}
-
-relaxationFactors
-{
-    fields
-    {
-        p               1.0;
-    }
-    equations
-    {
-        U               1.0;
-        h               1.0;
-    }
+    momentumPredictor           yes;
 }
