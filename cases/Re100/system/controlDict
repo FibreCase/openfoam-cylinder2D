@@ -5,15 +5,15 @@ application     icoFoam;
 startFrom       startTime;
 startTime       0;
 stopAt          endTime;
-endTime         0.5;
+endTime         0.03;            // ~12 个流过时间 / ~55 个涡脱落周期，足够观察涡街
 
-deltaT          1e-7;
+deltaT          1e-6;
 adjustTimeStep  yes;
-maxCo           0.2;
+maxCo           1.0;            // icoFoam PISO(2 correctors) 在 Co~1 稳定；原 0.2 偏保守，步数多 5 倍
 maxDeltaT       1e-4;
 
 writeControl    runTime;
-writeInterval   5e-4;
+writeInterval   1e-4;           // ~0.5 个脱落周期写一帧，足够做动画
 purgeWrite      0;
 
 writeFormat     ascii;
@@ -33,11 +33,11 @@ functions
         type            forces;
         libs            (forces);
         writeControl    runTime;
-        writeInterval   0.02;
-        patches         (walls);       // 监控整个 walls（含圆柱）
+        writeInterval   1e-4;
+        patches         (cylinder);    // 仅积分圆柱面
         rho             rhoInf;
         rhoInf          1.225;
-        CofR            (0 0 0);       // 参考点（圆柱中心）
+        CofR            (0.1 0 0);      // 圆柱中心 (x0 = 10*D = 0.1)
     }
 
     forceCoeffs
@@ -45,16 +45,16 @@ functions
         type            forceCoeffs;
         libs            (forces);
         writeControl    runTime;
-        writeInterval   0.02;
-        patches         (walls);
+        writeInterval   1e-4;
+        patches         (cylinder);
         rho             rhoInf;
         rhoInf          1.225;
         liftDir         (0 1 0);
         dragDir         (1 0 0);
-        CofR            (0 0 0);
+        CofR            (0.1 0 0);
         pitchAxis       (0 0 1);
         magUInf         34.7188;
-        lRef            0.1;             // D = 0.1 m
-        Aref            0.1;             // 圆柱投影面积 = D × 1（单位展向）
+        lRef            0.01;            // D = 0.01 m
+        Aref            1e-5;            // 投影面积 = D × 展向厚度 = 0.01 × 0.001
     }
 }

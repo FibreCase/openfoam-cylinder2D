@@ -5,47 +5,56 @@
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 FoamFile
 {
-    version     2.0;
-    format      ascii;
-    arch        "LSB;label=32;scalar=64";
-    class       polyBoundaryMesh;
-    location    "constant/polyMesh";
-    object      boundary;
+    version         2;
+    format          ascii;
+    arch            "LSB;label=32;scalar=64";
+    class           polyBoundaryMesh;
+    location        "constant/polyMesh";
+    object          boundary;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-4
+
+5 // entry0
 (
     frontAndBack
     {
         type            empty;
-        physicalType    empty;
+        physicalType    patch;
         nFaces          154456;
         startFace       117866;
     }
-    walls
+    cylinder
     {
         type            wall;
-        physicalType    wall;
-        nFaces          356;
+        physicalType    patch;
+        nFaces          236;
         startFace       272322;
+    }
+    farfield
+    {
+        type            patch;
+        physicalType    patch;
+        nFaces          120;
+        startFace       272558;
     }
     outlet
     {
         type            patch;
-        physicalType    outlet;
+        physicalType    patch;
         nFaces          40;
         startFace       272678;
     }
     inlet
     {
         type            patch;
-        physicalType    inlet;
+        physicalType    patch;
         nFaces          40;
         startFace       272718;
     }
 )
+
 
 // ************************************************************************* //

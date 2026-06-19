@@ -1,6 +1,6 @@
 FoamFile { version 2.0; format ascii; class dictionary; object decomposeParDict; }
 
-numberOfSubdomains  24;          // ← 按 CPU 核心数修改
+numberOfSubdomains  16;           // 77k cells / 8 ≈ 9.6k cells/core（>10k 为高效区间）；原 24 核过度分解，MPI 通信占主导
 
 method  scotch;                 // 非结构网格首选，自动负载均衡，无需手动分区
 

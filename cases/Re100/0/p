@@ -14,7 +14,11 @@ boundaryField
         type fixedValue;
         value uniform 362.480000;
     }
-    walls
+    farfield
+    {
+        type zeroGradient;
+    }
+    cylinder
     {
         type zeroGradient;
     }

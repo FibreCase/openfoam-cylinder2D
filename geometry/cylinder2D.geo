@@ -1,7 +1,7 @@
 // ============================================================
 //  圆柱绕流 2D — 混合网格（含尾流加密矩形区）
 //  O形边界层（结构化四边形）+ 尾流矩形精细三角形 + 远场粗三角形
-//  Re = 100, D = 0.1m
+//  Re = 100, D = 0.01m
 // ============================================================
 
 D   = 0.01;
@@ -143,8 +143,13 @@ ext_wake[]  = Extrude {0, 0, thickness} { Surface{6}; Layers{1}; Recombine; };
 Physical Surface("inlet")  = {ext_outer[5]};
 Physical Surface("outlet") = {ext_outer[3]};
 
-Physical Surface("walls") = {
-    ext_outer[2], ext_outer[4],    // 上下壁面
+// 上下远场边界单独成组（slip / 自由流，避免通道约束抑制涡脱落）
+Physical Surface("farfield") = {
+    ext_outer[2], ext_outer[4]     // 底边 + 顶边
+};
+
+// 圆柱面单独成组（no-slip），便于正确积分受力
+Physical Surface("cylinder") = {
     ext_bl1[2], ext_bl2[2],
     ext_bl3[2], ext_bl4[2]         // 圆柱面四象限
 };

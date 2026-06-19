@@ -1,4 +1,6 @@
 FoamFile { version 2.0; format ascii; class dictionary; object transportProperties; }
 
 transportModel  Newtonian;
-nu              [0 2 -1 0 0 0 0]  1.56e-05;   // 空气 @ 300 K（仅在不可压求解器中使用）
+// Re = U*D/nu = 34.7188 * 0.01 / 100 = 100  =>  nu = 3.47188e-3
+// 人为放大粘度以在保持 U=34.7188 m/s 的同时得到 Re=100（非物理空气，仅为复现卡门涡街）
+nu              [0 2 -1 0 0 0 0]  3.47188e-03;

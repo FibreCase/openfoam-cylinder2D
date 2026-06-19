@@ -7,6 +7,8 @@ This project uses OpenFOAM to simulate the Kármán vortex street formed by two-
 - Cylinder diameter: $D = 0.01\,\text{m}$
 - Fluid density: $\rho = 1.225\,\text{kg/m}^3$
 - Inlet velocity: $U = 34.7188\,\text{m/s}$
+- Kinematic viscosity: $\nu = 3.47188\times10^{-3}\,\text{m}^2/\text{s}$ (artificially raised so $Re = U D/\nu = 100$)
+- Reynolds number: $Re = 100$
 - Far-field gauge pressure: $p_{\infty} = 444.038\,\text{Pa}$
 - Problem type: two-dimensional external flow
 - Geometry and mesh generation: Gmsh
@@ -47,9 +49,9 @@ cd geometry
 bash generate.sh
 ```
 
-The mesh file is generated as `geometry/cylinder2D.msh` by default.
+The mesh file is generated as `geometry/cylinder2D.msh` by default. `Allrun.sh` now regenerates and converts the mesh automatically, so manual conversion is no longer required.
 
-Update the `type` and `physicalType` entries in `cases/Re100/constant/polyMesh/boundary` so they match the boundary definitions in the mesh. An example is shown below:
+After `gmshToFoam`, the patches are `inlet`, `outlet`, `cylinder` (no-slip), `farfield` (slip free-stream), and `frontAndBack` (2D empty). The `frontAndBack` type is set to `empty` automatically by the script. An example of the resulting `constant/polyMesh/boundary` is shown below:
 
 ```openFoam
 (
@@ -60,12 +62,19 @@ Update the `type` and `physicalType` entries in `cases/Re100/constant/polyMesh/b
 		nFaces          154456;
 		startFace       117866;
 	}
-	walls
+	cylinder
 	{
 		type            wall;
 		physicalType    wall;
-		nFaces          356;
+		nFaces          240;
 		startFace       272322;
+	}
+	farfield
+	{
+		type            patch;
+		physicalType    patch;
+		nFaces          116;
+		startFace       272562;
 	}
 	outlet
 	{

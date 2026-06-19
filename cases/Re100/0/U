@@ -15,7 +15,11 @@ boundaryField
         type            pressureInletOutletVelocity;
         value           uniform (34.7188 0 0);
     }
-    walls                       // 上下壁面 + 圆柱面统一 no-slip
+    farfield                    // 上下远场：自由流，slip
+    {
+        type            slip;
+    }
+    cylinder                    // 圆柱面 no-slip
     {
         type            noSlip;
     }
