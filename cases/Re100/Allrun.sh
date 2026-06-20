@@ -7,12 +7,10 @@ mkdir -p logs
 # 配置区 —— 按需修改
 # ================================================================
 MESH_FILE="../../geometry/cylinder2D.msh"
-NP=16
+NP=16 # 在 system/decomposeParDict 中也要修改 numberOfSubdomains
 # ================================================================
 
 log() { echo "[$(date '+%H:%M:%S')] $*"; }
-
-# 几何已改动（patch: walls → farfield + cylinder），必须重新生成网格并转换
 
 # ---- 1. 转换 GMSH 网格 ----
 log "Converting GMSH mesh..."
@@ -24,7 +22,6 @@ foamDictionary constant/polyMesh/boundary \
     -entry entry0/frontAndBack/type -set empty >> logs/gmshToFoam.log 2>&1
 foamDictionary constant/polyMesh/boundary \
     -entry entry0/cylinder/type -set wall >> logs/gmshToFoam.log 2>&1
-# inlet / outlet / farfield 保持 patch（gmshToFoam 默认即为 patch，无需修改）
 
 # ---- 3. 检查网格 ----
 log "Checking mesh..."

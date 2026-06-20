@@ -31,7 +31,7 @@ functions
     forces
     {
         type            forces;
-        libs            (forces);
+        libs            ("libforces.so");
         writeControl    runTime;
         writeInterval   1e-4;
         patches         (cylinder);    // 仅积分圆柱面
@@ -43,7 +43,7 @@ functions
     forceCoeffs
     {
         type            forceCoeffs;
-        libs            (forces);
+        libs            ("libforces.so");
         writeControl    runTime;
         writeInterval   1e-4;
         patches         (cylinder);
